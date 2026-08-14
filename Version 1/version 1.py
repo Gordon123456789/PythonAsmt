@@ -195,3 +195,86 @@ for i in range(3):
     buttons.append(button)
 
 
+# LOAD QUESTION FUNCTION
+
+# This function displays the current question.
+def load_question():
+
+    # Reset the selected answer.
+    # This means the user must select an answer
+    # for the new question.
+    choice.set(-1)
+
+
+    # Get the current question from the questions list.
+    question = questions[current_question]
+
+
+    # Change the question label to display
+    # the current question.
+    question_label.config(
+        text=question["question"]
+    )
+
+
+    # Change each radio button to display
+    # the current question's options.
+    for i in range(3):
+
+        buttons[i].config(
+            text=question["options"][i]
+        )
+
+
+# NEXT QUESTION FUNCTION
+
+# This function runs when the user presses Next.
+def next_question():
+
+    # We use global because we are changing
+    # these variables inside the function.
+    global score
+    global current_question
+
+
+    # Check if the user selected an answer.
+    # -1 means no answer was selected.
+    if choice.get() == -1:
+
+        # Display a warning if they haven't
+        # selected an answer.
+        messagebox.showwarning(
+            "No Answer",
+            "Please select an answer."
+        )
+
+        # Stop the function here.
+        return
+
+
+    # Add the score from the selected answer
+    # to the user's total score.
+    #
+    # choice.get() gives us the selected option.
+    # The scores list tells us how many points
+    # that option is worth.
+    score += questions[current_question]["scores"][choice.get()]
+
+
+    # Move to the next question.
+    current_question += 1
+
+
+    # Check whether there are still questions left.
+    if current_question < len(questions):
+
+        # If there are questions left,
+        # display the next question.
+        load_question()
+
+    else:
+
+        # If there are no questions left,
+        # display the final result.
+        show_results()
+
