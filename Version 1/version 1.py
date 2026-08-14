@@ -278,3 +278,78 @@ def next_question():
         # display the final result.
         show_results()
 
+
+# RESULTS FUNCTION
+
+# This function decides the user's risk profile.
+def show_results():
+
+    # If the score is 7 or lower,
+    # the user is considered conservative.
+    if score <= 7:
+
+        result = (
+            "Risk Profile: Conservative\n\n"
+
+            "You prefer lower levels of risk.\n\n"
+
+            "Suggested investments:\n"
+            "- Savings accounts\n"
+            "- Term deposits\n"
+            "- Bonds"
+        )
+
+
+    # If the score is between 8 and 11,
+    # the user is considered moderate.
+    elif score <= 11:
+
+        result = (
+            "Risk Profile: Moderate\n\n"
+
+            "You are comfortable with some risk.\n\n"
+
+            "Suggested investments:\n"
+            "- Index funds\n"
+            "- Balanced funds\n"
+            "- Bonds"
+        )
+
+
+    # If the score is higher than 11,
+    # the user is considered a growth investor.
+    else:
+
+        result = (
+            "Risk Profile: Growth\n\n"
+
+            "You are comfortable with higher risk.\n\n"
+
+            "Suggested investments:\n"
+            "- Growth ETFs\n"
+            "- Shares\n"
+            "- Global index funds"
+        )
+
+
+    # Replace the question with the results.
+    question_label.config(
+        text=result
+    )
+
+
+    # Hide the radio buttons because
+    # the quiz has finished.
+    for button in buttons:
+        button.pack_forget()
+
+
+    # Hide the Next button.
+    next_button.pack_forget()
+
+
+    # Display the disclaimer.
+    disclaimer.config(
+        text="For educational purposes only. Not financial advice."
+    )
+
