@@ -90,3 +90,46 @@ questions = [
 ]
 
 
+# variables
+
+# This variable stores the user's total score.
+# It starts at 0 because the user has not answered
+# any questions yet.
+score = 0
+
+
+# This keeps track of which question the user is on.
+# Python starts counting from 0.
+current_question = 0
+
+
+# CREATE THE MAIN WINDOW
+
+# Create the main Tkinter window.
+root = tk.Tk()
+
+
+# Set the title displayed at the top of the window.
+root.title("Investment Recommendation Quiz")
+
+
+# Set the size of the window.
+# 600 = width
+# 400 = height
+root.geometry("600x400")
+
+
+# TITLE
+
+# Create a label for the title.
+title = tk.Label(
+    root,
+    text="Investment Recommendation Quiz",
+    font=("Arial", 20)
+)
+
+
+# Put the title inside the window.
+title.pack(pady=20)
+
+
