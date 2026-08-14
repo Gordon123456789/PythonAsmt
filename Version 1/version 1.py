@@ -133,3 +133,65 @@ title = tk.Label(
 title.pack(pady=20)
 
 
+# QUESTION LABEL
+
+# This label will display the current question.
+question_label = tk.Label(
+    root,
+    text="",
+    font=("Arial", 15),
+    wraplength=500
+)
+
+
+# Put the question label into the window.
+question_label.pack(pady=20)
+
+
+# ANSWER VARIABLE
+
+# IntVar is used by Tkinter to store which
+# radio button the user has selected.
+#
+# -1 means that no answer has been selected yet.
+choice = tk.IntVar(value=-1)
+
+
+# RADIO BUTTONS
+
+# This list will store all of the radio buttons.
+buttons = []
+
+
+# Create three radio buttons because each question
+# has three possible answers.
+for i in range(3):
+
+    # Create a radio button.
+    button = tk.Radiobutton(
+        root,
+
+        # The text will be changed when a question loads.
+        text="",
+
+        # Connect the button to the choice variable.
+        variable=choice,
+
+        # Each button gets a different value.
+        value=i,
+
+        font=("Arial", 12)
+    )
+
+
+    # Place the button on the screen.
+    button.pack(
+        anchor="w",
+        padx=150
+    )
+
+
+    # Add the button to our list.
+    buttons.append(button)
+
+
