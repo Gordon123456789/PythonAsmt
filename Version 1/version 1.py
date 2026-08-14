@@ -353,3 +353,46 @@ def show_results():
         text="For educational purposes only. Not financial advice."
     )
 
+
+# NEXT BUTTON
+
+# Create the Next button.
+next_button = tk.Button(
+    root,
+
+    # Text displayed on the button.
+    text="Next",
+
+    # Run next_question() when clicked.
+    command=next_question,
+
+    font=("Arial", 12)
+)
+
+
+# Put the button into the window.
+next_button.pack(pady=20)
+
+
+# DISCLAIMER
+
+# Create a label for the disclaimer.
+disclaimer = tk.Label(
+    root,
+    text="",
+    font=("Arial", 9)
+)
+
+
+# Put the disclaimer at the bottom.
+disclaimer.pack()
+
+# Load the first question. 
+# Calling function
+load_question()
+
+
+# Start the Tkinter program.
+# This keeps the window open and waits
+# for the user to interact with it.
+root.mainloop()
