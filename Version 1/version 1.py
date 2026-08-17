@@ -103,6 +103,11 @@ score = 0
 current_question = 0
 
 
+# These variables store the user's details.
+user_name = ""
+user_age = 0
+
+
 # CREATE THE MAIN WINDOW
 
 # Create the main Tkinter window.
@@ -133,6 +138,46 @@ title = tk.Label(
 title.pack(pady=20)
 
 
+# USER DETAILS
+
+# Create a label asking the user for their name.
+name_label = tk.Label(
+    root,
+    text="Enter your name:",
+    font=("Arial", 12)
+)
+
+name_label.pack()
+
+
+# Create a box where the user can enter their name.
+name_entry = tk.Entry(
+    root,
+    font=("Arial", 12)
+)
+
+name_entry.pack(pady=5)
+
+
+# Create a label asking the user for their age.
+age_label = tk.Label(
+    root,
+    text="Enter your age:",
+    font=("Arial", 12)
+)
+
+age_label.pack()
+
+
+# Create a box where the user can enter their age.
+age_entry = tk.Entry(
+    root,
+    font=("Arial", 12)
+)
+
+age_entry.pack(pady=5)
+
+
 # QUESTION LABEL
 
 # This label will display the current question.
@@ -142,10 +187,6 @@ question_label = tk.Label(
     font=("Arial", 15),
     wraplength=500
 )
-
-
-# Put the question label into the window.
-question_label.pack(pady=20)
 
 
 # ANSWER VARIABLE
@@ -185,14 +226,76 @@ for i in range(3):
 
 
     # Place the button on the screen.
-    button.pack(
-        anchor="w",
-        padx=150
+    buttons.append(button)
+
+
+# USER DETAILS FUNCTION
+
+def get_user_details():
+
+    global user_name
+    global user_age
+
+    user_name = name_entry.get().strip()
+    age = age_entry.get().strip()
+
+    if user_name == "":
+        messagebox.showwarning(
+            "No Name",
+            "Please enter your name."
+        )
+        return
+
+    if age == "":
+        messagebox.showwarning(
+            "No Age",
+            "Please enter your age."
+        )
+        return
+
+    try:
+        user_age = int(age)
+
+    except ValueError:
+        messagebox.showwarning(
+            "Invalid Age",
+            "Please enter your age as a number."
+        )
+        return
+
+    if user_age < 16 or user_age > 18:
+        messagebox.showwarning(
+            "Invalid Age",
+            "This quiz is designed for users aged 16-18."
+        )
+        return
+
+    name_label.pack_forget()
+    name_entry.pack_forget()
+
+    age_label.pack_forget()
+    age_entry.pack_forget()
+
+    start_button.pack_forget()
+
+    title.config(
+        text="Welcome " + user_name + "!"
     )
 
+    load_question()
 
-    # Add the button to our list.
-    buttons.append(button)
+
+# START BUTTON
+
+# Create a button that starts the quiz.
+start_button = tk.Button(
+    root,
+    text="Start Quiz",
+    command=get_user_details,
+    font=("Arial", 12)
+)
+
+start_button.pack(pady=15)
 
 
 # LOAD QUESTION FUNCTION
@@ -216,6 +319,8 @@ def load_question():
         text=question["question"]
     )
 
+    question_label.pack(pady=20)
+
 
     # Change each radio button to display
     # the current question's options.
@@ -223,6 +328,11 @@ def load_question():
 
         buttons[i].config(
             text=question["options"][i]
+        )
+
+        buttons[i].pack(
+            anchor="w",
+            padx=150
         )
 
 
@@ -334,7 +444,7 @@ def show_results():
 
     # Replace the question with the results.
     question_label.config(
-        text=result
+        text="Results for " + user_name + "\n\n" + result
     )
 
 
@@ -374,6 +484,11 @@ next_button = tk.Button(
 next_button.pack(pady=20)
 
 
+# Hide the Next button until the user
+# has entered their details.
+next_button.pack_forget()
+
+
 # DISCLAIMER
 
 # Create a label for the disclaimer.
@@ -387,12 +502,8 @@ disclaimer = tk.Label(
 # Put the disclaimer at the bottom.
 disclaimer.pack()
 
-# Load the first question. 
-# Calling function
-load_question()
-
-
-# Start the Tkinter program.
-# This keeps the window open and waits
-# for the user to interact with it.
+# Start the program by asking for
+# the user's details first.
+# The quiz will begin after the user
+# enters valid details.
 root.mainloop()
